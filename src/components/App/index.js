@@ -1,15 +1,20 @@
-import './App.scss';
+import './App.scss'
+import {useEffect, useState} from 'react'
 
-function Index() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-         Countries APP
-        </p>
-      </header>
-    </div>
-  );
+function App() {
+    const [country, setCountry] = useState([])
+    console.log(country)
+    useEffect(() => {
+        fetch(`https://restcountries.eu/rest/v2/all`)
+            .then((response) => response.json())
+            .then((json) => {
+                const selectedCountry = Math.floor(Math.random() * json.length)
+                const dataCountry = json[selectedCountry]
+                setCountry(dataCountry)
+            })
+    }, [])
+
+    return <div className="App"></div>
 }
 
-export default Index;
+export default App
